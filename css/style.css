@@ -1,0 +1,52 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(66, 66, 66);
+    
+}
+main{
+    color: black;
+}
+nav{
+    background-color: rgb(165, 161, 161);
+}
+nav ul{
+    list-style: none;
+}
+nav ul li{
+    display: flex;
+    justify-content: space-around;
+}
+nav ul li a{
+    text-decoration: none;
+    font-size: 2rem;
+    color: black;
+
+}
+.card-img-top{
+    width: 190px;
+}
+#cargarServicios{
+    color: black;
+}
+
+#servicios_container{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap:wrap;
+    margin: 10px;
+}
+
+#filtros{
+    display: flex;
+    justify-content: end;
+    margin: 15px;
+}
+
+h1{
+    text-align: center;
+}
