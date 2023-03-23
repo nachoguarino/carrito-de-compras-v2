@@ -89,15 +89,33 @@ const ordenarPorPrecio = document.getElementById("ordenarPorPrecio")
 
 //CONTROLADORES
 const controladorServicios = new ServicioController()
-controladorServicios.subirServicios()
-controladorServicios.ordenarPorPrecio() // ordenar por precio por defecto
-controladorServicios.cargarEnDom(servicios_container)
-
 const controladorCarrito = new CarritoController()
+
+//INICIAR
+controladorServicios.subirServicios()
 controladorCarrito.subir()
 
+//ORDENAR POR PRECIO
+controladorServicios.ordenarPorPrecio()
+
+//CARGAR EN DOM
+controladorServicios.cargarEnDom(servicios_container)
 
 
+
+//AÑADIR AL CARRITO 
+
+controladorServicios.listaServicios.forEach(servicio => {
+
+    const servicioAlCarrito = document.getElementById(`servicio${servicio.id}`)
+    
+    servicioAlCarrito.addEventListener("click", () => {
+        
+        controladorCarrito.subir(servicio)
+        controladorCarrito.añadirACarrito(servicio)
+        controladorCarrito.mostrarEnDom(servicios_carrito)
+    })
+})
 
 //FILTRO
 precioMax.addEventListener("change", () => {
@@ -115,24 +133,10 @@ precioMax.addEventListener("change", () => {
     }
 })
 
-//ORDENAR POR PRECIO
+
 ordenarPorPrecio.addEventListener("click", () => {
     controladorServicios.ordenarPorPrecio()
     controladorServicios.limpiarDom(servicios_container)
     controladorServicios.cargarEnDom(servicios_container)
 })
-
-//AÑADIR AL CARRITO 
-
-controladorServicios.listaServicios.forEach(servicio => {
-
-    const servicioAlCarrito = document.getElementById(`servicio${servicio.id}`)
-
-    servicioAlCarrito.addEventListener("click", () => {
-
-        controladorCarrito.subirServicios(servicio)
-        controladorCarrito.añadirACarrito()
-
-        controladorCarrito.mostrarEnDom(servicios_carrito)
-    })
-})
+//CARRITO IMPLEMENTANDOSE AUN
