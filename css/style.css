@@ -16,10 +16,12 @@ nav{
 }
 nav ul{
     list-style: none;
+    display: flex;
+    justify-content: space-between;
 }
 nav ul li{
-    display: flex;
-    justify-content: space-around;
+    padding: 10px;
+
 }
 nav ul li a{
     text-decoration: none;
