@@ -47,9 +47,14 @@ nav ul li a{
     display: flex;
     justify-content: end;
     margin: 15px;
+    color: white;
 }
 
 h1{
     text-align: center;
     padding: 15px;
+}
+
+#OrdenarPorPrecio{
+    padding: 5px;
 }
