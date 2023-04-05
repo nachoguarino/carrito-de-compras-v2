@@ -187,7 +187,7 @@ controladorServicios.listaServicios.forEach((servicio) => {
         controladorCarrito.mostrarPrecioDom(precio, precioIva)
 
         Toastify({
-            text: "Producto añadido con éxito",
+            text: "Servicio añadido con éxito",
             duration: 3000,
             gravity: "bottom",
             position: "right",

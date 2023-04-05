@@ -58,3 +58,8 @@ h1{
 #OrdenarPorPrecio{
     padding: 5px;
 }
+
+.div_precio{
+    color: black;
+    max-width: 200px;
+}
