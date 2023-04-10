@@ -1,0 +1,23 @@
+[
+    {
+        "id": "1",
+        "servicio": "mix",
+        "precio": "10000",
+        "descripcion": "mix para tu cancion",
+        "cantidad": "0"
+    },
+    {
+        "id": "2",
+        "servicio": "mix y master",
+        "precio": "2000",
+        "descripcion": "mix y mastering para tu cancion",
+        "cantidad": "0"
+    },
+    {
+        "id": "3",
+        "servicio": "beat personalizado",
+        "precio": "3000",
+        "descripcion": "beat personalizado y original",
+        "cantidad": "0"
+    }
+]

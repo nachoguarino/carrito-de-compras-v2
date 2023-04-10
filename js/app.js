@@ -1,16 +1,18 @@
+
+
 class ServicioController {
     constructor() {
         this.listaServicios = []
+        this.servicios_container = document.getElementById("servicios_container")
+
     }
 
-    subirServicios() {
-        let listaJSON = localStorage.getItem("listaServicios")
+    async levantarJSON(){
+        let respuesta = await fetch("./js/ServiciosAPI.json")
+        this.listaServicios = await respuesta.json()
+        this.cargarEnDom()
+        this.eventoCarrito()
 
-        if (listaJSON) {
-            this.listaServicios = JSON.parse(listaJSON)
-            return true
-        }
-        return false
     }
     filtrarPrecioMax(precio) {
         this.listaServicios = this.listaServicios.filter(servicio => servicio.precio <= precio)
@@ -18,9 +20,9 @@ class ServicioController {
     ordenarPorPrecio() {
         this.listaServicios.sort((a, b) => a.precio - b.precio);
     }
-    cargarEnDom(nodo) {
+    cargarEnDom() {
         this.listaServicios.forEach(servicio => {
-            nodo.innerHTML += `<div class="card" style="width: 18rem;">
+            this.servicios_container.innerHTML += `<div class="card" style="width: 18rem;">
             <img src="https://yt3.googleusercontent.com/ytc/AL5GRJVyaKyzr5lmzcEMoErT8EGUChYsjfN0iAF-Lnvx=s900-c-k-c0x00ffffff-no-rj" class="card-img-top" alt="imagen-servicio">
             <div class="card-body">
                 <h5 class="card-title">${servicio.servicio}</h5>
@@ -35,6 +37,30 @@ class ServicioController {
     limpiarDom(nodo) {
         nodo.innerHTML = ""
 
+    }
+    eventoCarrito(){
+        this.listaServicios.forEach((servicio) => {
+            const servicioAlCarrito = document.getElementById(`servicio${servicio.id}`)
+            
+            servicioAlCarrito.addEventListener("click", () => {
+                controladorCarrito.subir(servicio)
+        
+                controladorCarrito.añadirACarrito(servicio)
+        
+                controladorCarrito.mostrarEnDom(servicios_carrito)
+                controladorCarrito.mostrarPrecioDom(precio, precioIva)
+        
+                Toastify({
+                    text: "Servicio añadido con éxito",
+                    duration: 3000,
+                    gravity: "bottom",
+                    position: "right",
+                    style: {
+                        background: "linear-gradient(to right, #00b09b, #96c93d)",
+                    },
+                    }).showToast();
+                })
+        })
     }
 }
 
@@ -150,11 +176,10 @@ const controladorServicios = new ServicioController()
 const controladorCarrito = new CarritoController()
 
 //VERIFICAR STORAGE
-controladorServicios.subirServicios()
 const levantoAlgo = controladorCarrito.subir()
 
 //DOM
-const servicios_container = document.getElementById("servicios_container")
+
 const servicios_carrito = document.getElementById("servicios_carrito")
 const precioMax = document.getElementById("filtroPrecio")
 const ordenarPorPrecio = document.getElementById("ordenarPorPrecio")
@@ -165,38 +190,17 @@ if(levantoAlgo){
     controladorCarrito.mostrarPrecioDom(precio, precioIva)
 }
 
+//API 
+controladorServicios.levantarJSON()
 
 //APP JS
-controladorServicios.cargarEnDom(servicios_container)
 controladorCarrito.mostrarEnDom(servicios_carrito)
 
 //ORDENAR POR PRECIO
 controladorServicios.ordenarPorPrecio()
 
 //EVENTOS 
-
-controladorServicios.listaServicios.forEach((servicio) => {
-    const servicioAlCarrito = document.getElementById(`servicio${servicio.id}`)
-    
-    servicioAlCarrito.addEventListener("click", () => {
-        controladorCarrito.subir(servicio)
-
-        controladorCarrito.añadirACarrito(servicio)
-
-        controladorCarrito.mostrarEnDom(servicios_carrito)
-        controladorCarrito.mostrarPrecioDom(precio, precioIva)
-
-        Toastify({
-            text: "Servicio añadido con éxito",
-            duration: 3000,
-            gravity: "bottom",
-            position: "right",
-            style: {
-                background: "linear-gradient(to right, #00b09b, #96c93d)",
-            },
-            }).showToast();
-        })
-})
+controladorServicios.eventoCarrito()
 
 
 //FILTRO
